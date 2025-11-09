@@ -1,6 +1,6 @@
 try {
 
-console.warning("test");
+console.warn("test"); // warning is not existent *face slap*
 (function () {
   "use strict";
   console.log("SCRATCHJS STARTED");
