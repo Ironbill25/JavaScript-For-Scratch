@@ -1,6 +1,4 @@
 try {
-
-console.warn("test"); // warning is not existent *face slap*
 (function () {
   "use strict";
   console.log("SCRATCHJS STARTED");
@@ -241,8 +239,8 @@ console.warn("test"); // warning is not existent *face slap*
 
     getInfo() {
         return {
-          id: "math",
-          name: "Utilities",
+          id: "scratchjs",
+          name: "ScratchJS",
           blocks: [
             makeblock("reporter", "getCurrentDateTime", "current [format]", {
               format: {
@@ -269,15 +267,11 @@ console.warn("test"); // warning is not existent *face slap*
                 }
               }
             ),
-            {
-              blockType: "reporter",
-              opcode: "roundNumber",
-              text: "round [number] to [decimals] decimal places",
-              arguments: {
-                number: { type: "number", defaultValue: 3.14159 },
+            makeblock("reporter", "roundNumber", "round [number] to [decimals] decimal places", {
+              number: { type: "number", defaultValue: 3.14159 },
                 decimals: { type: "number", defaultValue: 2 }
               }
-            },
+            ),
             "---",
             auto_block("reporter", "Vec", "vector [a] [b] [c]"),
             auto_block("reporter", "Arr", "list [a] [b]"),
@@ -386,27 +380,6 @@ console.warn("test"); // warning is not existent *face slap*
       Sqrt = mat_reporter_f((a) =>
         component_wise2D((a, b) => Math.sqrt(a))(a, [[1]])
       );
-    }
-    function findReactComponent(element) {
-      let fiber =
-        element[
-          Object.keys(element).find((key) =>
-            key.startsWith("__reactInternalInstance$")
-          )
-        ];
-      if (fiber == null) return null;
-      const go = (fiber) => {
-        let parent = fiber.return;
-        while (typeof parent.type == "string") {
-          parent = parent.return;
-        }
-        return parent;
-      };
-      fiber = go(fiber);
-      while (fiber.stateNode == null) {
-        fiber = go(fiber);
-      }
-      return fiber.stateNode;
     }
     (function () {
       var extensionInstance = new ScratchJS(vm.extensionManager.runtime);
