@@ -1,4 +1,4 @@
-// ==UserScript==
+try {// ==UserScript==
 // @name         JS for Scratch
 // @namespace    https://scratch.mit.edu/
 // @version      2025-11-09
@@ -462,3 +462,6 @@
     })();
   });
 })();
+} catch (e) {
+  console.error(e);
+}
