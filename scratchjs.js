@@ -1,14 +1,6 @@
-try {// ==UserScript==
-// @name         JS for Scratch
-// @namespace    https://scratch.mit.edu/
-// @version      2025-11-09
-// @description  Automatic JS Extension injector
-// @author       You
-// @match        https://scratch.mit.edu/projects/*
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @grant        none
-// ==/UserScript==
+try {
 
+console.warning("test");
 (function () {
   "use strict";
   console.log("SCRATCHJS STARTED");
