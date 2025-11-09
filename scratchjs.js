@@ -126,6 +126,34 @@ console.warn("test"); // warning is not existent *face slap*
       ),
       hideFromPalette: !0,
     });
+
+    const makeblock = (blockType, opcode, text, args) => ({
+      blockType: (blockType => {
+        switch (blockType) {
+        case "reporter":
+          return "reporter";
+        case "command":
+          return "command";
+        case "hat":
+          return "hat";
+        case "bool":
+          return "Boolean";
+        default:
+          return "command";
+        }
+      })(blockType),
+      opcode,
+      text,
+      arguments: Object.fromEntries(
+        new Array(text.split("[").length - 1)
+          .fill()
+          .map((_, i) => [
+            letter(i),
+            { type: (args && args[i]) || "string", defaultValue: " " },
+          ])
+      ),
+      hideFromPalette: false,
+    });
     const mat_reporter_f = (f) => (o) =>
       to_s(
         f(
@@ -134,7 +162,7 @@ console.warn("test"); // warning is not existent *face slap*
             .map((_, i) => from_s(o[letter(i)]))
         )
       );
-    class ScratchMath {
+    class ScratchJS {
       constructor(runtime) {
         this.runtime = runtime;
       }
@@ -216,18 +244,13 @@ console.warn("test"); // warning is not existent *face slap*
           id: "math",
           name: "Utilities",
           blocks: [
-            {
-              blockType: "reporter",
-              opcode: "getCurrentDateTime",
-              text: "current [format]",
-              arguments: {
-                format: {
-                  type: "string",
-                  menu: "dateFormatMenu",
-                  defaultValue: "datetime"
-                }
+            makeblock("reporter", "getCurrentDateTime", "current [format]", {
+              format: {
+                type: "string",
+                menu: "dateFormatMenu",
+                defaultValue: "datetime"
               }
-            },
+            }),
             {
               blockType: "reporter",
               opcode: "randomInRange",
@@ -237,19 +260,15 @@ console.warn("test"); // warning is not existent *face slap*
                 max: { type: "number", defaultValue: 10 }
               }
             },
-            {
-              blockType: "reporter",
-              opcode: "changeCase",
-              text: "convert [text] to [caseType]",
-              arguments: {
-                text: { type: "string", defaultValue: "Hello World" },
+            makeblock("reporter", "changeCase", "convert [text] to [caseType]", {
+              text: { type: "string", defaultValue: "Hello World" },
                 caseType: {
                   type: "string",
                   menu: "caseTypeMenu",
                   defaultValue: "uppercase"
                 }
               }
-            },
+            ),
             {
               blockType: "reporter",
               opcode: "roundNumber",
@@ -285,97 +304,43 @@ console.warn("test"); // warning is not existent *face slap*
             auto_block("reporter", "Norm", "normalize [a]"),
             auto_block("reporter", "Size", "size of [a]"),
             auto_block("reporter", "Sqrt", "sqrt of [a]"),
-            {
-              blockType: "command",
-              opcode: "RunJS",
-              text: "JS| Run JS code [code]",
-              arguments: {
-                code: { type: "string", defaultValue: "alert('Hello World!')" },
-              },
-            },
+            makeblock("command", "RunJS", "JS| Run JS code [code]", {
+              code: { type: "string", defaultValue: "alert('Hello World!')" },
+            }),
             "---",
-            {
-              blockType: "reporter",
-              opcode: "getReturnValOfJS",
-              text: "JS| Get return value of [code]",
-              arguments: {
-                code: { type: "string", defaultValue: "6473 / 84" },
-              },
-            },
-            {
-              blockType: "command",
-              opcode: "OpenSite",
-              text: "JS| Open site [url]",
-              arguments: {
-                url: { type: "string", defaultValue: "https://example.com" },
-              },
-            },
-            {
-              blockType: "command",
-              opcode: "SaveFile",
-              text: "JS| Save file [name] with contents [contents]",
-              arguments: {
-                name: { type: "string", defaultValue: "example.txt" },
-                contents: { type: "string", defaultValue: "Hello World!" },
-              },
-            },
-            {
-              blockType: "command",
-              opcode: "setVar",
-              text: "JS| Set variable [name] to [val]",
-              arguments: {
-                name: { type: "string", defaultValue: "window.example" },
-                val: { type: "string", defaultValue: "Hello World!" },
-              },
-            },
+            makeblock("reporter", "getReturnValOfJS", "JS| Get return value of [code]", {
+              code: { type: "string", defaultValue: "6473 / 84" },
+            }),
+            makeblock("command", "OpenSite", "JS| Open site [url]", {
+              url: { type: "string", defaultValue: "https://example.com" },
+            }),
+            makeblock("command", "SaveFile", "JS| Save file [name] with contents [contents]", {
+              name: { type: "string", defaultValue: "example.txt" },
+              contents: { type: "string", defaultValue: "Hello World!" },
+            }),
+            makeblock("command", "setVar", "JS| Set variable [name] to [val]", {
+              name: { type: "string", defaultValue: "window.example" },
+              val: { type: "string", defaultValue: "Hello World!" },
+            }),
             "---",
             "---",
-            {
-              blockType: "hat",
-              opcode: "whenCondition",
-              text: "when [condit] is true",
-              isEdgeActivated: true,
-              arguments: {
-                condit: {
-                  type: "string",
-                  defaultValue: "Put any boolean block here",
-                },
+            makeblock("hat", "whenCondition", "when [condit] is true", {
+              condit: {
+                type: "Boolean",
+                defaultValue: "Put any boolean block here",
               },
-            },
-            {
-              blockType: "reporter",
-              opcode: "stringReport",
-              text: "[arg1]",
-              arguments: { arg1: { type: "string", defaultValue: "Hello" } },
-            },
-            {
-              blockType: "reporter",
-              opcode: "ifBoolStringElseString",
-              text: "if [arg1] then [arg2] else [arg3]",
-              arguments: {
-                arg1: { type: "Boolean"},
-                arg2: { type: "string", defaultValue: "Hello" },
-                arg3: { type: "string", defaultValue: "World" },
-              },
-            },
-            {
-              blockType: "reporter",
-              opcode: "outOfBoundsMouseX",
-              text: "Mouse X (works out of bounds)",
-              arguments: {},
-            },
-            {
-              blockType: "reporter",
-              opcode: "outOfBoundsMouseY",
-              text: "Mouse Y (works out of bounds)",
-              arguments: {},
-            },
-            {
-              blockType: "Boolean",
-              opcode: "outOfBoundsMouseDown",
-              text: "Mouse down? (works out of bounds)",
-              arguments: {},
-            },
+            }),
+            makeblock("reporter", "stringReport", "[arg1]", {
+              arg1: { type: "string", defaultValue: "Hello" },
+            }),
+            makeblock("reporter", "ifBoolStringElseString", "if [arg1] then [arg2] else [arg3]", {
+              arg1: { type: "Boolean"},
+              arg2: { type: "string", defaultValue: "Hello" },
+              arg3: { type: "string", defaultValue: "World" },
+            }),
+            makeblock("reporter", "outOfBoundsMouseX", "Mouse X (works out of bounds)", {}),
+            makeblock("reporter", "outOfBoundsMouseY", "Mouse Y (works out of bounds)", {}),
+            makeblock("Boolean", "outOfBoundsMouseDown", "Mouse down? (works out of bounds)", {})
           ],
           menus: { 
             varMenu: "getVarMenu",
@@ -444,7 +409,7 @@ console.warn("test"); // warning is not existent *face slap*
       return fiber.stateNode;
     }
     (function () {
-      var extensionInstance = new ScratchMath(vm.extensionManager.runtime);
+      var extensionInstance = new ScratchJS(vm.extensionManager.runtime);
       var serviceName =
         vm.extensionManager._registerInternalExtension(extensionInstance);
       vm.extensionManager._loadedExtensions.set(
