@@ -44,6 +44,7 @@
 
   waitForVM((vm) => {
     // this is the main part of the extension; do not modify unless you know what you're doing.
+    console.log("SCRATCHJS STARTED");
     const from_s = (s) =>
       ("" + s)
         .split(" ")
