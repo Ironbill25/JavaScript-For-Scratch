@@ -353,7 +353,7 @@ console.warn("test"); // warning is not existent *face slap*
               opcode: "ifBoolStringElseString",
               text: "if [arg1] then [arg2] else [arg3]",
               arguments: {
-                arg1: { type: "string", defaultValue: "Boolean here" },
+                arg1: { type: "Boolean"},
                 arg2: { type: "string", defaultValue: "Hello" },
                 arg3: { type: "string", defaultValue: "World" },
               },
@@ -371,7 +371,7 @@ console.warn("test"); // warning is not existent *face slap*
               arguments: {},
             },
             {
-              blockType: "boolean",
+              blockType: "Boolean",
               opcode: "outOfBoundsMouseDown",
               text: "Mouse down? (works out of bounds)",
               arguments: {},
