@@ -327,7 +327,7 @@ try {
             }),
             makeblock("reporter", "outOfBoundsMouseX", "Mouse X (works out of bounds)", {}),
             makeblock("reporter", "outOfBoundsMouseY", "Mouse Y (works out of bounds)", {}),
-            makeblock("Boolean", "outOfBoundsMouseDown", "Mouse down? (works out of bounds)", {})
+            makeblock("bool", "outOfBoundsMouseDown", "Mouse down? (works out of bounds)", {})
           ],
           menus: { 
             varMenu: "getVarMenu",
@@ -390,5 +390,6 @@ try {
   console.error(e);
 
 }
+
 
 
