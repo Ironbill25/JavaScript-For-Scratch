@@ -141,14 +141,8 @@ try {
       })(blockType),
       opcode,
       text,
-      arguments: Object.fromEntries(
-        new Array(text.split("[").length - 1)
-          .fill()
-          .map((_, i) => [
-            letter(i),
-            { type: (args && args[i]) || "string", defaultValue: " " },
-          ])
-      ),
+      arguments: args,
+      args,
       hideFromPalette: false,
     });
     const mat_reporter_f = (f) => (o) =>
@@ -396,4 +390,5 @@ try {
   console.error(e);
 
 }
+
 
