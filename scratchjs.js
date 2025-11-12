@@ -3,7 +3,6 @@ try {
   "use strict";
   console.log("SCRATCHJS STARTED");
   function waitForVM(callback) {
-    const check = setInterval(() => {
       const el = document.querySelector(
         'div[class*="stage-header_stage-header-wrapper"]'
       );
@@ -22,7 +21,6 @@ try {
       const vm = fiber?.stateNode?.props?.vm || fiber?.return?.return?.return?.return?.updateQueue?.stores?.[0]?.value?.vm;
 
       if (vm) {
-        clearInterval(check);
         console.log(
           "%c[Scratch Injector]%c VM found!",
           "color: lime;",
@@ -30,7 +28,8 @@ try {
         );
         callback(vm);
       }
-    }, 1000);
+    
+    
   }
 
   waitForVM((vm) => {
@@ -381,6 +380,7 @@ try {
         component_wise2D((a, b) => Math.sqrt(a))(a, [[1]])
       );
     }
+    vm = (node => { node = document.querySelector('div[class*=stage-header_stage-header-wrapper]'); node = node[Object.keys(node).find(key => (key=String(key), key.startsWith('__reactInternal') || key.startsWith('__reactFiber')))].return.return.return; node = node.stateNode?.props?.vm || node.return?.updateQueue?.stores?.[0]?.value?.vm; if (!node) throw new Error('Could not find VM :('); return node; })();
     (function () {
       var extensionInstance = new ScratchJS(vm.extensionManager.runtime);
       var serviceName =
@@ -396,3 +396,4 @@ try {
   console.error(e);
 
 }
+
