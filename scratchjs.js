@@ -234,6 +234,10 @@ try {
         return (bool === "true" || bool === "1" || bool === "True" || (bool !== "0" && bool !=="false" && bool !=="False"))
       }
 
+      boolToText({ bool }) {
+        return bool.toString()
+      }
+
     getInfo() {
         return {
           id: "scratchjs",
@@ -333,7 +337,8 @@ try {
             makeblock("reporter", "outOfBoundsMouseY", "Mouse Y (works out of bounds)", {}),
             makeblock("bool", "outOfBoundsMouseDown", "Mouse down? (works out of bounds)", {}),
             "---",
-            makeblock("bool", "textToBool", "[bool]", {bool: {type: "string", defaultValue: "true"}})
+            makeblock("bool", "textToBool", "[bool]", {bool: {type: "string", defaultValue: "true"}}),
+            makeblock("reporter", "boolToText", "[bool]", {bool: {type: "Boolean"}})
           ],
           menus: { 
             varMenu: "getVarMenu",
@@ -396,6 +401,7 @@ try {
   console.error(e);
 
 }
+
 
 
 
