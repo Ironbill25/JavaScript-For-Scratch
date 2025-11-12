@@ -230,6 +230,10 @@ try {
       return Math.round(number * factor) / factor;
     }
 
+      textToBool({ bool }) {
+        return (bool === "true" || bool === "1" || bool === "True" || (bool !== "0" && bool !=="false" && bool !=="False"))
+      }
+
     getInfo() {
         return {
           id: "scratchjs",
@@ -327,7 +331,9 @@ try {
             }),
             makeblock("reporter", "outOfBoundsMouseX", "Mouse X (works out of bounds)", {}),
             makeblock("reporter", "outOfBoundsMouseY", "Mouse Y (works out of bounds)", {}),
-            makeblock("bool", "outOfBoundsMouseDown", "Mouse down? (works out of bounds)", {})
+            makeblock("bool", "outOfBoundsMouseDown", "Mouse down? (works out of bounds)", {}),
+            "---",
+            makeblock("bool", "textToBool", "[bool]", {bool: {type: "string", defaultValue: "true"}})
           ],
           menus: { 
             varMenu: "getVarMenu",
@@ -390,6 +396,7 @@ try {
   console.error(e);
 
 }
+
 
 
 
