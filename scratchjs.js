@@ -19,7 +19,7 @@ try {
 
       let fiber = el[reactKey];
       while (fiber && !fiber.stateNode) fiber = fiber.return;
-      const vm = fiber?.stateNode?.props?.vm;
+      const vm = fiber?.stateNode?.props?.vm || fiber?.return?.return?.return?.return?.updateQueue?.stores?.[0]?.value?.vm;
 
       if (vm) {
         clearInterval(check);
@@ -394,4 +394,5 @@ try {
 })();
 } catch (e) {
   console.error(e);
+
 }
