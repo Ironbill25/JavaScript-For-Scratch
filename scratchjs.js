@@ -240,7 +240,7 @@ try {
 
     getInfo() {
         return {
-          id: "scratchjs",
+          id: "math",
           name: "ScratchJS",
           blocks: [
             makeblock("reporter", "getCurrentDateTime", "current [format]", {
@@ -401,6 +401,7 @@ try {
   console.error(e);
 
 }
+
 
 
 
