@@ -383,8 +383,8 @@ You can get the official bookmarklet here: https://scratch.mit.edu/projects/1316
         try {
           const timestamp = Date.now();
           const url = canary 
-            ? "https://raw.githubusercontent.com/Ironbill25/JavaScript-For-Scratch/canary/dist/bundle.js?t=" 
-            : "https://raw.githubusercontent.com/Ironbill25/JavaScript-For-Scratch/main/dist/bundle.js?t=";
+            ? "https://raw.githubusercontent.com/DogLover8425/JavaScript-For-Scratch/canary/dist/bundle.js?t=" 
+            : "https://raw.githubusercontent.com/DogLover8425/JavaScript-For-Scratch/main/dist/bundle.js?t="; // NOTE: When pulling, remove this comment, and replace "DogLover8425" with "Ironbill25"
           const response = await fetch(url + timestamp, { cache: "no-store" });
           if (response.ok) {
             const code = await response.text();
@@ -519,10 +519,9 @@ You can get the official bookmarklet here: https://scratch.mit.edu/projects/1316
             );
 
             switch (blockType) {
-              case BlockType.REPORTER:
-                return `An error occured: ${error.message}`;
               case BlockType.BOOLEAN:
                 return false;
+              case BlockType.REPORTER:
               case BlockType.COMMAND:
               case BlockType.HAT:
               case BlockType.LOOP:
@@ -536,7 +535,7 @@ You can get the official bookmarklet here: https://scratch.mit.edu/projects/1316
         window.allBlocks.push({
           blockType: blockType || BlockType.COMMAND,
           opcode,
-          text: opcode.endsWith("Category") ? "=== " + text + " ===" : text,
+          text: text.includes("Category") ? `<a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>${text}</a>` : text,
           arguments: args,
           args,
           hideFromPalette: othersettings.hide || false,
@@ -554,7 +553,7 @@ You can get the official bookmarklet here: https://scratch.mit.edu/projects/1316
         return (window["sjs_" + name] || []).push(Spacer);
       }
 
-      window.CategoryHeader = (text) => Block(BlockType.REPORTER, text.replaceAll(" ","") + "category", text, {});
+      window.CategoryHeader = (text) => Block(BlockType.BUTTON, text.replaceAll(" ","") + "category", text, {}); // BlockType.,
 
       window.Argument = (type, defaultValue) => ({
         type,
@@ -594,7 +593,7 @@ You can get the official bookmarklet here: https://scratch.mit.edu/projects/1316
         BUTTON: "reporter",
         CONDITIONAL: "conditional",
         EVENT: "event",
-        LOOP: "loop",
+        LOOP: "loop"
       };
       window.ArgumentType = {
         STRING: "string",
